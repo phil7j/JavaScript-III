@@ -132,5 +132,41 @@ CharacterStats.prototype.takeDamage = function () {
 
   // Stretch task:
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  let Hero = function(attribute){
+    Humanoid.call(this,attribute);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.attack = function(target){
+     target.healthPoints =- 5;
+     if(target.healthpoints <= 0){
+       return target.destroy;
+     } else return `${this.name} attacked ${target.name}! They now have ${target.healthPoints} hp!`
+  };
+
+// Villain
+
+  let Villain = function(attribute){
+    Humanoid.call(this,attribute);
+  }
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.attack = function(target){
+     target.healthPoints =- 5;
+     if(target.healthpoints <= 0){
+       return target.destroy;
+     } else return `${this.name} attacked ${target.name}! They now have ${target.healthPoints} hp!`
+  };
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects
+  //  which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  let superMan = new Hero({
+    healthPoints: 100,
+    name: "Superman"
+  });
+
+  let batMan = new Villain({
+    healthPoints: 100,
+    name: "Batman"
+  });
+
+  console.log(superMan.attack(batMan));
